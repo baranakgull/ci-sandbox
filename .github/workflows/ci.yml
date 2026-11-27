@@ -1,0 +1,21 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pull-requests: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  ci:
+    uses: baranakgull/.github/.github/workflows/python-ci.yml@4c67084dc2c9bc3d701f5e82d962188665cae191 # main
+    with:
+      bandit-paths: app
